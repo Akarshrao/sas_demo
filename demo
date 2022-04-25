@@ -1,0 +1,117 @@
+****DO WHILE****; 
+DATA MYDATA; 
+SUM = 0; 
+VAR = 1; 
+DO WHILE(VAR<6) ; 
+   SUM = SUM+VAR; 
+   VAR+1; 
+END; 
+PROC PRINT; 
+RUN; 
+**********DO UNTILL*************; 
+DATA MYDATA; 
+SUM = 0; 
+VAR = 1; 
+DO UNTIL(VAR>5); 
+   SUM = SUM+VAR; 
+   VAR+1; 
+END; 
+   PROC PRINT; 
+   RUN; 
+   
+   Results: Program 1
+   
+   
+Obs	SUM	VAR
+1	15	6
+Obs	SUM	VAR
+1	15	6
+
+
+*********DECISION MAKING***************; 
+DATA EMPDAT; 
+INPUT   EMPID ENAME $ SALARY DEPT $ DOJ DATE9.; 
+LABEL ID = 'Employee ID'; 
+FORMAT DOJ DATE9.; 
+DATALINES; 
+1 Rick 623.3 IT 02APR2001 
+2 Dan 515.2 OPS 11JUL2012 
+3 Mike 611.5 IT 21OCT2000 
+4 Ryan 729.1 HR 30JUL2012 
+5 Gary 843.2 FIN 06AUG2000 
+6 Tusar 578.6 IT 01MAR2009 
+7 Pranab 632.8 OPS 16AUG1998 
+8 Rasmi 722.5 FIN 13SEP2014 
+; 
+Data EMPDAT1; 
+Set EMPDAT; 
+IF SALARY > 650 THEN SAL_GROUP="High"; 
+else SAL_GROUP="low"; 
+PROC PRINT DATA = EMPDAT; 
+run; 
+
+Results: Program 1
+
+
+Obs	EMPID	ENAME	SALARY	DEPT	DOJ
+1	1	Rick	623.3	IT	02APR2001
+2	2	Dan	515.2	OPS	11JUL2012
+3	3	Mike	611.5	IT	21OCT2000
+4	4	Ryan	729.1	HR	30JUL2012
+5	5	Gary	843.2	FIN	06AUG2000
+6	6	Tusar	578.6	IT	01MAR2009
+7	7	Pranab	632.8	OPS	16AUG1998
+8	8	Rasmi	722.5	FIN	13SEP2014
+
+
+**********if then else if statment**********;
+Data EMPDAT1;
+Set EMPDAT;
+IF SALARY < 600 THEN SALRANGE = "LOW";
+ELSE IF 600 <= SALARY <= 700 THEN SALRANGE = "MEDIUM";
+ELSE IF 700 < SALARY THEN SALRANGE = "MEDIUM";
+PROC PRINT DATA = EMPDAT1;
+run;
+
+********if then delete statement*****;
+Data EMPDAT1;
+Set EMPDAT;
+IF SALARY > 700 THEN DELETE;
+PROC PRINT DATA = EMPDAT1;
+run;
+
+
+result:::
+
+Obs	EMPID	ENAME	SALARY	DEPT	DOJ	SALRANGE
+1	1	Rick	623.3	IT	02APR2001	MED
+2	2	Dan	515.2	OPS	11JUL2012	LOW
+3	3	Mike	611.5	IT	21OCT2000	MED
+4	4	Ryan	729.1	HR	30JUL2012	MED
+5	5	Gary	843.2	FIN	06AUG2000	MED
+6	6	Tusar	578.6	IT	01MAR2009	LOW
+7	7	Pranab	632.8	OPS	16AUG1998	MED
+8	8	Rasmi	722.5	FIN	13SEP2014	MED
+
+
+Obs	EMPID	ENAME	SALARY	DEPT	DOJ
+1	1	Rick	623.3	IT	02APR2001
+2	2	Dan	515.2	OPS	11JUL2012
+3	3	Mike	611.5	IT	21OCT2000
+4	6	Tusar	578.6	IT	01MAR2009
+5	7	Pranab	632.8	OPS	16AUG1998
+
+
+*******data prepration ***************; 
+data class_copy; 
+    set sashelp.class; 
+    where age>15; 
+    keep Age Height Weight; 
+run; 
+ 
+*****droping column*******; 
+DATA class_copy; 
+set sashelp.class; 
+where age>15; 
+drop  Age Height Weight; 
+run; 
