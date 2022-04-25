@@ -1,1 +1,53 @@
+Code: Program 1
+***importing file from URL; 
+filename birthday temp;                 /*1*/ 
+proc http                           /*2*/ 
+     url="https://raw.githubusercontent.com/svkarthik86/SAS-Programming/6f0bee84a863612d34e360b6a2c6cef3da2ae50c/data/class_birthdate.csv" 
+     out=birthday; 
+quit; 
+proc import datafile=birthday           /*3*/ 
+     out=work.birthday          
+     dbms=csv                        
+     replace; 
+run; 
+proc print data=work.birthday; /*4*/ 
+run; 
+ 
+%let age=13; 
+Title "Class Report"; 
+Title2="Age=&age"; 
+footnote="School use only"; 
+proc print data=work.birthday; 
+where  Age=&age; 
+run; 
+Title2; 
+Title; 
+footnote; 
 
+Results: Program 1
+Obs	Name	Sex	Age	Height	Weight	Birthdate
+1	Alfred	M	14	69	112.5	10/26/2004
+2	Alice	F	13	56.5	84	11/16/2005
+3	Barbara	F	13	65.3	98	01/15/2005
+4	Carol	F	14	62.8	102.5	07/04/2004
+5	Henry	M	14	63.5	102.5	12/01/2004
+6	James	M	12	57.3	83	06/15/2006
+7	Jane	F	12	59.8	84.5	03/13/2006
+8	Janet	F	15	62.5	112.5	04/02/2003
+9	Jeffrey	M	13	62.5	84	04/26/2005
+10	John	M	12	59	99.5	08/23/2006
+11	Joyce	F	11	51.3	50.5	01/03/2007
+12	Judy	F	14	64.3	90	12/05/2004
+13	Louise	F	12	56.3	77	08/08/2006
+14	Mary	F	15	66.5	112	03/26/2003
+15	Philip	M	16	72	150	11/21/2002
+16	Robert	M	12	64.8	128	06/06/2006
+17	Ronald	M	15	67	133	10/14/2003
+18	Thomas	M	11	57.5	85	03/18/2007
+19	William	M	15	66.5	112	12/28/2003
+Class Report
+
+Obs	Name	Sex	Age	Height	Weight	Birthdate
+2	Alice	F	13	56.5	84	11/16/2005
+3	Barbara	F	13	65.3	98	01/15/2005
+9	Jeffrey	M	13	62.5	84	04/26/2005
