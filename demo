@@ -62,7 +62,7 @@ Obs	EMPID	ENAME	SALARY	DEPT	DOJ
 6	6	Tusar	578.6	IT	01MAR2009
 7	7	Pranab	632.8	OPS	16AUG1998
 8	8	Rasmi	722.5	FIN	13SEP2014
-
+--------------------------------------------------------------------------------------------------
 
 **********if then else if statment**********;
 Data EMPDAT1;
@@ -115,3 +115,43 @@ set sashelp.class;
 where age>15; 
 drop  Age Height Weight; 
 run; 
+
+----------------------------importing csv file---------------------------------
+
+*** Importing CSV file to SAS Data***;
+libname Test "/home/u61234377/sasuser.v94/MYPROJECT";
+
+PROC import datafile="/home/u61234377/sasuser.v94/kingCountyHouseData.csv"
+	OUT=TEST.Housedata
+	DBMS=csv;
+RUN;
+
+
+------------------------------------------------String------------------------------------------------------------------
+DATA string_examples;  
+LENGTH string1 $ 6 String2 $ 5 String3 $ 4 String4 $ 6 String5 $ 2;  
+   String1 = 'Ankit';  
+   String2 = 'Namrita';  
+   String3 = 'Preeti';  
+   String4 = 'Vishal';  
+   String5 = 'Akanksha'; 
+   String6 = String1||String2; *join the string together
+run;  
+proc print data = string_examples noobs;  
+run;
+
+
+data string_examples;  
+   LENGTH string1 $ 7 ;  
+   String1 = 'ABCDEFG';  
+   sub_string1 = substrn(String1,1,4) ; 
+   sub_string2 = REVERSE(String1);
+   str4 = compbl('AB             CDEFG');
+   str5 = strip("     ab      ");
+   str6 = compress("AB 122393JDDJJ");
+   str7 = cat("AB 122393JDDJJ","edu");
+   /*Extract from position 1, and end when completes total 4 elements */  
+run;  
+proc print data = string_examples;  
+var   sub_string1 string1;
+run;
